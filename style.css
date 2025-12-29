@@ -1,0 +1,95 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.day.empty {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  cursor: default;
+}
+
+.day.empty:hover {
+  background-color: #f8f9fa; /* No hover effect */
+}
+
+.calendar-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+.calendar-header {
+    display: flex;
+    gap: 2%;
+    align-items: center;
+    padding: 1rem;
+    background: darkolivegreen;
+    color: black;
+    border-radius: 8px 8px 0 0;
+}
+
+.calendar-header button {
+    background: black;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.calendar-header button:hover {
+    background: white;
+    color: black;
+}
+
+.weekdays, .days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    background: #f8f9fa;
+}
+
+.weekdays div {
+    text-align: center;
+    padding: 1rem;
+    font-weight: bold;
+    background: #ecf0f1;
+    
+}
+
+.day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: white;
+}
+
+.day.current-month:hover {
+    background-color: darkolivegreen;
+    color: white;
+    transform: scale(1.05);
+}
+
+.day.today {
+    background-color: #e74c3c;
+    color: white;
+    font-weight: bold;
+}
+
+.day.empty {
+    background-color: #f8f9fa;
+    cursor: default;
+}
+
+.day.empty:hover {
+    background-color: #f8f9fa;
+    transform: none;
+}
