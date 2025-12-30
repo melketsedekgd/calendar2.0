@@ -25,6 +25,66 @@
         <div class="days-grid" id="calendar-grid">
             <!-- Days populated by JavaScript -->
         </div>
+
+        <!-- Add to your HTML -->
+        <div id="event-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3 id="modal-title">Add Event</h3>
+            
+            <form id="event-form">
+            <input type="hidden" id="event-date">
+            
+            <div class="form-group">
+                <label for="event-title">Title *</label>
+                <input type="text" id="event-title" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="event-date-input">Date</label>
+                <input type="date" id="event-date-input" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="event-time">Time</label>
+                <input type="time" id="event-time">
+            </div>
+            
+            <div class="form-group">
+                <label for="event-color">Color</label>
+                <div class="color-picker">
+                <input type="color" id="event-color" value="#3498db">
+                <div class="color-options">
+                    <span class="color-option" style="background-color: #3498db;" data-color="#3498db"></span>
+                    <span class="color-option" style="background-color: #e74c3c;" data-color="#e74c3c"></span>
+                    <span class="color-option" style="background-color: #2ecc71;" data-color="#2ecc71"></span>
+                    <span class="color-option" style="background-color: #f39c12;" data-color="#f39c12"></span>
+                    <span class="color-option" style="background-color: #9b59b6;" data-color="#9b59b6"></span>
+                </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="event-description">Description</label>
+                <textarea id="event-description" rows="3"></textarea>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Save Event</button>
+                <button type="button" class="btn btn-secondary" id="cancel-event">Cancel</button>
+            </div>
+            </form>
+        </div>
+        </div>
+
+        <!-- Quick Add Button -->
+        <button id="add-event-btn" class="floating-btn">+ Add Event</button>
+
+        <footer class="calendar-footer">
+            <div>
+                <p>hi</p>
+            </div>
+        </footer>
     </div>
     
     

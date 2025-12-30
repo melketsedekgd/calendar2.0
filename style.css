@@ -93,3 +93,25 @@
     background-color: #f8f9fa;
     transform: none;
 }
+
+.calendar-footer {
+    display: flex;
+    gap: 2%;
+    align-items: center;
+    padding: 1rem;
+    background: darkolivegreen;
+    color: black;
+    border-radius: 8px 8px 8px 8px;
+}
+
+/* for the event style */
+/* Simple red dot for events */
+.day.has-event::after {
+  content: "•";
+  color: red;
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 24px;
+}

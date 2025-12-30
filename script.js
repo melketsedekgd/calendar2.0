@@ -2,6 +2,8 @@ class Calendar {
       constructor() {
         // THIS IS WHERE CURRENT DATE IS DECLARED
         this.currentDate = new Date(); // Sets to today's date
+        this.events = {};  // ← ADD JUST THIS LINE
+        this.loadEvents(); // ← ADD THIS TOO
         this.render();
         this.setupEventListeners();
       }
@@ -46,6 +48,11 @@ class Calendar {
           dayEl.className = 'day current-month';
           dayEl.textContent = day;
           
+        // ADD THIS CHECK:
+            if (this.hasEvents(year, month + 1, day)) {
+                dayEl.classList.add('has-event'); // ← This line
+            }
+
           // Add data attribute for easy access
           dayEl.dataset.date = `${year}-${month + 1}-${day}`;
           
@@ -61,6 +68,7 @@ class Calendar {
           grid.appendChild(dayEl);
         }
         
+
       }
 
       nextMonth() {
@@ -76,25 +84,27 @@ class Calendar {
       }
 
       selectDay(day) {
-        const selectedDate = new Date(
-          this.currentDate.getFullYear(),
-          this.currentDate.getMonth(),
-          day
-        );
-        console.log('Selected Date:', selectedDate.toDateString());
+        const year = this.currentDate.getFullYear();
+        const month = this.currentDate.getMonth() + 1; // +1 because months are 0-11
         
-        // Visual feedback
-        document.querySelectorAll('.day.current-month').forEach(d => {
-          d.classList.remove('selected');
-        });
+        // Ask for event name
+        const eventName = prompt(`Add event for ${month}/${day}/${year}:`);
         
-        // Find and highlight the clicked day
-        const clickedDay = Array.from(document.querySelectorAll('.day.current-month'))
-          .find(d => parseInt(d.textContent) === day);
-        if (clickedDay) {
-          clickedDay.classList.add('selected');
+        if (eventName) {
+            // Save the event
+            const key = `${year}-${month}-${day}`;
+            if (!this.events[key]) {
+            this.events[key] = [];
+            }
+            this.events[key].push(eventName);
+            
+            // Save and refresh
+            this.saveEvents();
+            this.render();
+            
+            console.log(`Added event: ${eventName} on ${key}`);
         }
-      }
+        }
 
       // Optional: Method to go to specific date
       goToDate(year, month, day = 1) {
@@ -107,12 +117,34 @@ class Calendar {
         this.currentDate = new Date();
         this.render();
       }
+
+      //////// EVENT RELATED CODE ////////
+       // 1. Save events
+        saveEvents() {
+            localStorage.setItem('calendarEvents', JSON.stringify(this.events));
+        }
+        
+        // 2. Load events  
+        loadEvents() {
+            const saved = localStorage.getItem('calendarEvents');
+            if (saved) {
+            this.events = JSON.parse(saved);
+            }
+        }
+        
+        // 3. Check if a day has events
+        hasEvents(year, month, day) {
+            const key = `${year}-${month}-${day}`;
+            return this.events[key] && this.events[key].length > 0;
+        }
+
     }
 
     // Initialize calendar when page loads
     document.addEventListener('DOMContentLoaded', () => {
       const calendar = new Calendar();
-      
+      calendar.setupEventHandling(); // Call this once
+
       // Add keyboard navigation
       document.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowLeft') calendar.prevMonth();
